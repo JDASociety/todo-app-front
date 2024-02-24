@@ -14,7 +14,7 @@
 
 <style is:global>
 	.btn {
-		@apply text-sm font-medium rounded-full px-6 py-2 transition-colors shadow-2xl cursor-pointer flex gap-2 items-center;
+		@apply rounded-full px-6 py-2 transition-colors shadow-2xl cursor-pointer flex gap-2 items-center justify-center;
 	}
 
 	.btn-gray {
@@ -31,5 +31,13 @@
 
 	.btn-danger:hover {
 		@apply bg-[#cf2d2dfd];
+	}
+
+	.btn-orange {
+		@apply bg-[#ff7a00] text-white;
+	}
+
+	.btn-orange:hover {
+		@apply bg-[#ff9900];
 	}
 </style>

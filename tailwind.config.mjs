@@ -8,7 +8,8 @@ export default {
       },
 			textColor: {
 				'primary': '#e9e9e9',
-				'secondary': '#bfbdb6', 
+				'secondary': '#bfbdb6',
+				'tertiary': '#1a191a',
 			},
 			backgroundColor: {
 				'primary': '#121112',
@@ -22,6 +23,11 @@ export default {
 			ringColor: {
 				'orange-primary': '#f3b029',
 			},
+			borderColor: {
+				'primary-light': '#9e9e9e',
+				'primary-dark': '#bfbdb6',
+				'secondary': '#1a191a',
+			}
 		},
 	},
 	plugins: [],
