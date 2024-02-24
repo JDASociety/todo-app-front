@@ -21,12 +21,20 @@ export const getTodos = async({ page = 1, take = 8, isDone }: Props): Promise<Re
 
   try {
 
+    const response = await fetch(`${API_URL}/todo/`);
+
+    if (!response.ok) {
+      throw new Error('Hubo un error al obtener las tareas.')
+    }
+
+    const todos = await response.json();
+
     const totalPages = 0;
 
     return {
       currentPage: page,
       totalPages,
-      todos: []
+      todos
     }
   } catch (error) {
     throw new Error('Hubo un error al obtener las tareas.')
