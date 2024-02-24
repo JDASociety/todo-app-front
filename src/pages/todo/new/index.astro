@@ -11,15 +11,17 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 				name="title"
 				type="text"
 				maxlength="70"
-				placeholder="Titulo de la tarea"
+				required
+				placeholder="Titulo de la tarea*"
 				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
 			/>
 			<textarea
 				id="description"
 				name="description"
 				rows="5"
+				required
 				maxlength="250"
-				placeholder="Descripción de la tarea"
+				placeholder="Descripción de la tarea*"
 				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
 			></textarea>
 			<div class="inline-flex items-center">
@@ -58,10 +60,24 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 
 <script>
 	import { setNewTodo } from '../../../todo'
-	import SpinIcon from '../../../components/icons/SpinIcon.astro'
 
 	const form = document.querySelector('#form-new-todo') as HTMLFormElement
 	const button = document.querySelector('#button-new-todo') as HTMLButtonElement
+
+	const svgSpinner = `
+			<svg 
+				class="animate-spin size-6" 
+				fill="none" viewBox="0 0 24 24">
+  		    <circle 
+						class="opacity-25" cx="12" cy="12" r="10" 
+						stroke="currentColor" 
+						stroke-width="4"></circle>
+  		    <path 
+						class="opacity-75" 
+						fill="currentColor" 
+						d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  		</svg>
+		`
 
 	const getFormValues = () => {
 		const title = form.elements.namedItem('title') as HTMLInputElement
@@ -81,20 +97,7 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 		e.preventDefault()
 
 		button.disabled = true
-		button.innerHTML = `
-			<svg 
-				class="animate-spin -ml-1 mr-3 size-6" 
-				fill="none" viewBox="0 0 24 24">
-  		    <circle 
-						class="opacity-25" cx="12" cy="12" r="10" 
-						stroke="currentColor" 
-						stroke-width="4"></circle>
-  		    <path 
-						class="opacity-75" 
-						fill="currentColor" 
-						d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-  		</svg>
-		`
+		button.innerHTML = svgSpinner
 
 		const values = getFormValues()
 
