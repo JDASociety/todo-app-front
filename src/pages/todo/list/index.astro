@@ -1,5 +1,5 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro'
+import MainLayout from '../../../layouts/MainLayout.astro'
 ---
 
 <MainLayout title="Lista de todos">
@@ -11,7 +11,7 @@ import MainLayout from '../../layouts/MainLayout.astro'
 </MainLayout>
 
 <script>
-	import { getTodos } from '../../todo'
+	import { getTodos } from '../../../todo'
 
 	const listResults = document.querySelector('.todolist-container')
 

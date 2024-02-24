@@ -1,6 +1,6 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro'
-import CheckIcon from '../../components/icons/CheckIcon.astro'
+import MainLayout from '../../../layouts/MainLayout.astro'
+import CheckIcon from '../../../components/icons/CheckIcon.astro'
 ---
 
 <MainLayout title="">
@@ -38,16 +38,19 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 					<p>¿Marcar como completada?</p>
 				</label>
 			</div>
-			<button
-				class="py-3 text-base font-medium rounded text-white bg-blue-800 w-full hover:bg-blue-700 transition duration-300"
-				type="submit">Agregar</button
-			>
+			<div>
+				<a href="/list"></a>
+			</div>
 		</form>
+		<button
+			class="py-3 text-base font-medium rounded text-white bg-blue-800 w-full hover:bg-blue-700 transition duration-300"
+			type="submit">Agregar</button
+		>
 	</div>
 </MainLayout>
 
 <script>
-	import { setNewTodo } from '../../todo'
+	import { setNewTodo } from '../../../todo'
 
 	const form = document.querySelector('#form-new-todo') as HTMLFormElement
 
