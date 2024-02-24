@@ -1,0 +1,43 @@
+---
+import MainLayout from './MainLayout.astro'
+
+interface Props {
+	position?: 'left' | 'right'
+	title: string
+	description: string
+}
+
+const { position = 'left', description, title } = Astro.props
+---
+
+<MainLayout>
+	<!-- Container -->
+	<div class="flex flex-wrap min-h-screen w-full content-center justify-center">
+		<!-- Login component -->
+		<div
+			class="flex justify-between shadow-md h-screen w-full"
+			class:list={[{ 'flex-row-reverse': position === 'left' }]}>
+			<!-- Login form -->
+			<div class="flex w-full items-center justify-center">
+				<section
+					class="bg-secondary shadow-inner shadow-primary p-10 rounded-lg backdrop-blur-lg">
+					<h1 class="text-3xl font-semibold text-primary mb-1">{title}</h1>
+					<p
+						class="text-sm font-medium leading-none text-secondary max-w-[30ch]">
+						{description}
+					</p>
+					<slot />
+				</section>
+			</div>
+
+			<!-- Login banner -->
+			<div
+				class="flex-wrap content-center max-w-[700px] w-full justify-center rounded-l-md hidden sm:flex">
+				<img
+					class="w-full h-full object-cover rounded-l-md"
+					src="/elmaquinon-y-cbomba.webp"
+				/>
+			</div>
+		</div>
+	</div>
+</MainLayout>

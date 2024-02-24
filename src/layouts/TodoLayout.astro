@@ -9,7 +9,7 @@ const { title } = Astro.props
 ---
 
 <MainLayout>
-	<main class="flex justify-center items-center py-10">
+	<section class="flex justify-center items-center py-10">
 		<div
 			class="flex flex-col items-center max-w-2xl w-full bg-secondary shadow-xl shadow-[#000000] text-primary rounded-xl p-10">
 			<h1 class="font-bold text-balance text-4xl mb-10">TODO - APP</h1>
@@ -18,5 +18,5 @@ const { title } = Astro.props
 				<slot />
 			</section>
 		</div>
-	</main>
+	</section>
 </MainLayout>
