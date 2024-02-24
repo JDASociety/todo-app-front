@@ -5,9 +5,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Inicio</title>
 	</head>
-	<body>
+	<body class="bg-[#121112]">
 		<main>
 			<slot />
 		</main>
 	</body>
 </html>
+
+<style is:global>
+	.btn {
+		@apply text-lg rounded-full px-8 py-2 transition-colors;
+	}
+
+	.btn-gray {
+		@apply bg-tertiary text-black;
+	}
+
+	.btn-gray:hover {
+		@apply bg-[#8a8884] text-white;
+	}
+</style>
