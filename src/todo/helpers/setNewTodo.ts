@@ -1,8 +1,7 @@
+import { getEnvironments } from "../../helpers";
 import type { CreateTodo } from "../../interfaces";
 
-const API_URL = import.meta.env.PUBLIC_BACKEND_URL;
-
-console.log(API_URL)
+const { API_URL } = getEnvironments()
 
 export const setNewTodo = async(todo: CreateTodo) =>  {
 
