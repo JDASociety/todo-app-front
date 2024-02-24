@@ -1,5 +1,6 @@
 
 export interface Todo {
+    id:          string;
     title:       string;
     description: string;
     done:        boolean;
@@ -7,4 +8,4 @@ export interface Todo {
     updated_at:  string;
 }
 
-export type CreateTodo = Omit<Todo, 'created_at' | 'updated_at'>;
+export type CreateTodo = Omit<Todo, 'created_at' | 'updated_at' | 'id'>;
