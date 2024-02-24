@@ -13,7 +13,7 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 				maxlength="70"
 				required
 				placeholder="Titulo de la tarea*"
-				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
+				class="w-full border border-gray-300 text-tertiary rounded-md py-2 px-3 focus:outline-none focus:border-primary-light"
 			/>
 			<textarea
 				id="description"
@@ -22,7 +22,7 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 				required
 				maxlength="250"
 				placeholder="Descripción de la tarea*"
-				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
+				class="w-full border border-gray-300 text-tertiary rounded-md py-2 px-3 focus:outline-none focus:border-primary-light"
 			></textarea>
 			<div class="inline-flex items-center">
 				<label
@@ -33,24 +33,20 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 						id="done"
 						name="done"
 						type="checkbox"
-						class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-teal-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-teal-500 checked:bg-teal-500 checked:before:bg-teal-500 hover:before:opacity-10"
+						class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-primary-light transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-primary-dark checked:bg-tertiary checked:before:bg-tertiary hover:before:opacity-10"
 					/>
 					<div
-						class="pointer-events-none absolute top-2/4 left-[16px] -translate-y-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+						class="pointer-events-none absolute top-2/4 left-[16px] -translate-y-2/4 text-tertiary opacity-0 transition-opacity peer-checked:opacity-100">
 						<CheckIcon class="size-3" />
 					</div>
 					<p>¿Marcar como completada?</p>
 				</label>
 			</div>
 			<div class="flex flex-col gap-4">
-				<a
-					href="/todo/list"
-					class="py-3 bg-gray-200 w-full shadow-xl hover:bg-gray-300 transition duration-300 rounded font-medium text-base"
-					>Cancelar</a
-				>
+				<a href="/" class="btn btn-gray text-lg font-semibold">Cancelar</a>
 				<button
 					id="button-new-todo"
-					class="py-3 flex justify-center text-base font-medium shadow-xl rounded text-white bg-blue-800 w-full hover:bg-blue-700 transition duration-300 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:shadow-none disabled:text-gray-800"
+					class="btn btn-orange text-lg font-semibold disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:shadow-none disabled:text-gray-800"
 					type="submit">Agregar</button
 				>
 			</div>
