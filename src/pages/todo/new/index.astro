@@ -1,15 +1,16 @@
 ---
-import MainLayout from '../../../layouts/MainLayout.astro'
+import TodoLayout from '../../../layouts/TodoLayout.astro'
 import CheckIcon from '../../../components/icons/CheckIcon.astro'
 ---
 
-<MainLayout title="">
+<TodoLayout title="Agregar nueva tarea">
 	<div class="w-full mx-auto text-center">
 		<form id="form-new-todo" class="flex flex-col gap-5 w-full">
 			<input
 				id="title"
 				name="title"
 				type="text"
+				maxlength="70"
 				placeholder="Titulo de la tarea"
 				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
 			/>
@@ -17,6 +18,7 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 				id="description"
 				name="description"
 				rows="5"
+				maxlength="250"
 				placeholder="Descripción de la tarea"
 				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
 			></textarea>
@@ -29,7 +31,7 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 						id="done"
 						name="done"
 						type="checkbox"
-						class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-teal-500 checked:bg-teal-500 checked:before:bg-teal-500 hover:before:opacity-10"
+						class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-teal-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-teal-500 checked:bg-teal-500 checked:before:bg-teal-500 hover:before:opacity-10"
 					/>
 					<div
 						class="pointer-events-none absolute top-2/4 left-[16px] -translate-y-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
@@ -38,21 +40,28 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 					<p>¿Marcar como completada?</p>
 				</label>
 			</div>
-			<div>
-				<a href="/list"></a>
+			<div class="flex flex-col gap-4">
+				<a
+					href="/todo/list"
+					class="py-3 bg-gray-200 w-full shadow-xl hover:bg-gray-300 transition duration-300 rounded font-medium text-base"
+					>Cancelar</a
+				>
+				<button
+					id="button-new-todo"
+					class="py-3 flex justify-center text-base font-medium shadow-xl rounded text-white bg-blue-800 w-full hover:bg-blue-700 transition duration-300 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:shadow-none disabled:text-gray-800"
+					type="submit">Agregar</button
+				>
 			</div>
 		</form>
-		<button
-			class="py-3 text-base font-medium rounded text-white bg-blue-800 w-full hover:bg-blue-700 transition duration-300"
-			type="submit">Agregar</button
-		>
 	</div>
-</MainLayout>
+</TodoLayout>
 
 <script>
 	import { setNewTodo } from '../../../todo'
+	import SpinIcon from '../../../components/icons/SpinIcon.astro'
 
 	const form = document.querySelector('#form-new-todo') as HTMLFormElement
+	const button = document.querySelector('#button-new-todo') as HTMLButtonElement
 
 	const getFormValues = () => {
 		const title = form.elements.namedItem('title') as HTMLInputElement
@@ -71,11 +80,34 @@ import CheckIcon from '../../../components/icons/CheckIcon.astro'
 	const onSubmit = async (e: SubmitEvent) => {
 		e.preventDefault()
 
+		button.disabled = true
+		button.innerHTML = `
+			<svg 
+				class="animate-spin -ml-1 mr-3 size-6" 
+				fill="none" viewBox="0 0 24 24">
+  		    <circle 
+						class="opacity-25" cx="12" cy="12" r="10" 
+						stroke="currentColor" 
+						stroke-width="4"></circle>
+  		    <path 
+						class="opacity-75" 
+						fill="currentColor" 
+						d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  		</svg>
+		`
+
 		const values = getFormValues()
 
-		const hola = await setNewTodo(values)
+		const newTodo = await setNewTodo(values)
 
-		console.log(hola)
+		button.disabled = false
+		button.innerHTML = 'Agregar'
+
+		if (newTodo.ok) {
+			window.location.href = '/todo/list'
+
+			return
+		}
 	}
 
 	form?.addEventListener('submit', onSubmit)
