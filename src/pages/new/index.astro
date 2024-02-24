@@ -5,18 +5,18 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 
 <Main>
 	<div class="w-full mx-auto text-center">
-		<form class="flex flex-col gap-5 w-full">
+		<form id="form-new-todo" class="flex flex-col gap-5 w-full">
 			<input
-				type="text"
 				id="title"
 				name="title"
+				type="text"
 				placeholder="Titulo de la tarea"
 				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
 			/>
 			<textarea
-				name="message"
+				id="description"
+				name="description"
 				rows="5"
-				cols=""
 				placeholder="Descripción de la tarea"
 				class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-teal-500"
 			></textarea>
@@ -26,10 +26,10 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 					for="checkbox-5"
 					data-ripple-dark="true">
 					<input
+						id="completed"
+						name="completed"
 						type="checkbox"
 						class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-teal-500 checked:bg-teal-500 checked:before:bg-teal-500 hover:before:opacity-10"
-						id="checkbox-5"
-						checked
 					/>
 					<div
 						class="pointer-events-none absolute top-2/4 left-[16px] -translate-y-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
@@ -45,3 +45,31 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 		</form>
 	</div>
 </Main>
+
+<script>
+	const form = document.querySelector('#form-new-todo') as HTMLFormElement
+
+	const getFormValues = () => {
+		const title = form.elements.namedItem('title') as HTMLInputElement
+		const description = form.elements.namedItem(
+			'description'
+		) as HTMLInputElement
+		const completed = form.elements.namedItem('completed') as HTMLInputElement
+
+		return {
+			title: title.value,
+			description: description.value,
+			completed: completed.checked,
+		}
+	}
+
+	const onSubmit = async (e: SubmitEvent) => {
+		e.preventDefault()
+
+		const values = getFormValues()
+
+		console.log(values)
+	}
+
+	form?.addEventListener('submit', onSubmit)
+</script>
