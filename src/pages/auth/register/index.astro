@@ -1,0 +1,21 @@
+---
+import AuthLayout from '../../../layouts/AuthLayout.astro'
+import { RegisterForm } from './ui/RegisterForm.tsx'
+---
+
+<AuthLayout
+	title="Bienvenido"
+	description="Maquina completa el formulario para crear tu cuenta">
+	<!-- Form -->
+	<RegisterForm client:only="preact" />
+
+	<!-- Footer -->
+	<div class="text-center">
+		<span class="text-xs text-gray-400 font-semibold">
+			¿Ya tines cuenta maquina?
+		</span>
+		<a href="/auth/login" class="text-xs font-semibold text-orange-primary">
+			Registrar
+		</a>
+	</div>
+</AuthLayout>
