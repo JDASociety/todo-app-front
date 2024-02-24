@@ -1,15 +1,47 @@
 ---
 import Main from '../../layouts/Main.astro'
 
-
-
 ---
 
 <Main>
 
+    
+    <section>
+        
+        <ul class=" todolist-container w-full">
+            <li>Hola</li>
+        </ul>
+        
+    </section>
     <h1>Lista de todos</h1>
-
-    <ul class=" todolist-container w-full  ">
-    </ul>
-
+    
 </Main>
+
+<script>
+    
+    ( async() => {
+
+    try {
+
+        const res = await fetch( 'http://127.0.0.1:8000/todo/' )
+        const data = await res.json()
+        
+        data.forEach( (todo: any) => {
+            const listResults = document.querySelector('.todolist-container');
+            const listElement = document.createElement('li')
+            listElement.innerHTML = `
+                <article>
+                    <h3>${ todo.title }</h3>
+                    <p>${ todo.description }</p>
+                    <input type="checkbox" ${ todo.done ? 'checked' : ''}>
+                </article>
+            `
+            listResults?.appendChild( listElement )
+        });
+
+        } catch (error) {
+            console.error('Error al hacer el fetch:', error);
+        }
+    })()
+
+</script>
