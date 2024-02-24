@@ -1,5 +1,5 @@
 import { getEnvironments } from "../../helpers";
-import type { CreateTodo } from "../../interfaces";
+import type { CreateTodo } from "../../todo";
 
 const { API_URL } = getEnvironments()
 
