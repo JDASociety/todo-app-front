@@ -12,12 +12,14 @@ import MainLayout from '../../layouts/MainLayout.astro'
 
 <script>
 	import { getTodos } from '../../todo'
+
+	const listResults = document.querySelector('.todolist-container')
+
 	;(async () => {
 		try {
 			const { todos } = await getTodos({})
 
 			todos.forEach((todo) => {
-				const listResults = document.querySelector('.todolist-container')
 				const listElement = document.createElement('li')
 				listElement.innerHTML = `
                 <article>
