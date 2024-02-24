@@ -10,6 +10,7 @@ export default {
 				'primary': '#e9e9e9',
 				'secondary': '#bfbdb6',
 				'tertiary': '#1a191a',
+				'orange-primary': '#f3b029',
 			},
 			backgroundColor: {
 				'primary': '#121112',
