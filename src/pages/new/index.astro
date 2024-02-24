@@ -1,9 +1,9 @@
 ---
-import Main from '../../layouts/Main.astro'
+import MainLayout from '../../layouts/MainLayout.astro'
 import CheckIcon from '../../components/icons/CheckIcon.astro'
 ---
 
-<Main>
+<MainLayout title="">
 	<div class="w-full mx-auto text-center">
 		<form id="form-new-todo" class="flex flex-col gap-5 w-full">
 			<input
@@ -44,7 +44,7 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 			>
 		</form>
 	</div>
-</Main>
+</MainLayout>
 
 <script>
 	import { setNewTodo } from '../../todo'
