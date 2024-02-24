@@ -26,8 +26,8 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 					for="checkbox-5"
 					data-ripple-dark="true">
 					<input
-						id="completed"
-						name="completed"
+						id="done"
+						name="done"
 						type="checkbox"
 						class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-teal-500 checked:bg-teal-500 checked:before:bg-teal-500 hover:before:opacity-10"
 					/>
@@ -47,6 +47,8 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 </Main>
 
 <script>
+	import { setNewTodo } from '../../todo'
+
 	const form = document.querySelector('#form-new-todo') as HTMLFormElement
 
 	const getFormValues = () => {
@@ -54,12 +56,12 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 		const description = form.elements.namedItem(
 			'description'
 		) as HTMLInputElement
-		const completed = form.elements.namedItem('completed') as HTMLInputElement
+		const done = form.elements.namedItem('done') as HTMLInputElement
 
 		return {
 			title: title.value,
 			description: description.value,
-			completed: completed.checked,
+			done: done.checked,
 		}
 	}
 
@@ -68,7 +70,9 @@ import CheckIcon from '../../components/icons/CheckIcon.astro'
 
 		const values = getFormValues()
 
-		console.log(values)
+		const hola = await setNewTodo(values)
+
+		console.log(hola)
 	}
 
 	form?.addEventListener('submit', onSubmit)
