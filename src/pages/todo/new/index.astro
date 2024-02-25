@@ -1,112 +1,17 @@
 ---
 import Layout from '../../../layouts/TodoLayout.astro'
 import CheckIcon from '../../../components/icons/CheckIcon.astro'
+import { NewTodoForm } from './ui/NewTodoForm'
+import SpinIcon from '../../../components/icons/SpinIcon.astro'
+import InfoCircleIcon from '../../../components/icons/InfoCircleIcon.astro'
 ---
 
 <Layout title="Agregar nueva tarea">
 	<div class="w-full mx-auto text-center">
-		<form id="form-new-todo" class="flex flex-col gap-5 w-full">
-			<input
-				id="title"
-				name="title"
-				type="text"
-				maxlength="70"
-				required
-				placeholder="Titulo de la tarea*"
-				class="input-primary"
-			/>
-			<textarea
-				id="description"
-				name="description"
-				rows="5"
-				required
-				maxlength="250"
-				placeholder="Descripción de la tarea*"
-				class="input-primary"></textarea>
-			<div class="inline-flex items-center">
-				<label
-					class="relative flex cursor-pointer items-center rounded-full p-3 gap-5"
-					for="checkbox-5"
-					data-ripple-dark="true">
-					<input
-						id="done"
-						name="done"
-						type="checkbox"
-						class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-primary-light transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-primary-dark checked:bg-tertiary checked:before:bg-tertiary hover:before:opacity-10"
-					/>
-					<div
-						class="pointer-events-none absolute top-2/4 left-[16px] -translate-y-2/4 text-tertiary opacity-0 transition-opacity peer-checked:opacity-100">
-						<CheckIcon class="size-3" />
-					</div>
-					<p>¿Marcar como completada?</p>
-				</label>
-			</div>
-			<div class="flex flex-col gap-4">
-				<a href="/" class="btn btn-gray text-lg font-semibold">Cancelar</a>
-				<button
-					id="button-new-todo"
-					class="btn btn-orange text-lg font-semibold disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:shadow-none disabled:text-gray-800"
-					type="submit">Agregar</button
-				>
-			</div>
-		</form>
+		<NewTodoForm client:only="preact">
+			<CheckIcon class="size-3" slot="checkIcon" />
+			<SpinIcon class="size-6 animate-spin" slot="spinnerIcon" />
+			<InfoCircleIcon class="size-5" slot="alertIcon" />
+		</NewTodoForm>
 	</div>
 </Layout>
-
-<script>
-	import { setNewTodo } from '../../../todo'
-
-	const form = document.querySelector('#form-new-todo') as HTMLFormElement
-	const button = document.querySelector('#button-new-todo') as HTMLButtonElement
-
-	const svgSpinner = `
-			<svg 
-				class="animate-spin size-6" 
-				fill="none" viewBox="0 0 24 24">
-  		    <circle 
-						class="opacity-25" cx="12" cy="12" r="10" 
-						stroke="currentColor" 
-						stroke-width="4"></circle>
-  		    <path 
-						class="opacity-75" 
-						fill="currentColor" 
-						d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-  		</svg>
-		`
-
-	const getFormValues = () => {
-		const title = form.elements.namedItem('title') as HTMLInputElement
-		const description = form.elements.namedItem(
-			'description'
-		) as HTMLInputElement
-		const done = form.elements.namedItem('done') as HTMLInputElement
-
-		return {
-			title: title.value,
-			description: description.value,
-			done: done.checked,
-		}
-	}
-
-	const onSubmit = async (e: SubmitEvent) => {
-		e.preventDefault()
-
-		button.disabled = true
-		button.innerHTML = svgSpinner
-
-		const values = getFormValues()
-
-		const newTodo = await setNewTodo(values)
-
-		button.disabled = false
-		button.innerHTML = 'Agregar'
-
-		if (newTodo.ok) {
-			window.location.href = '/todo/list'
-
-			return
-		}
-	}
-
-	form?.addEventListener('submit', onSubmit)
-</script>
