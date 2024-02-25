@@ -7,18 +7,14 @@ export const LoginForm = () => {
 		<form class="mt-4 flex flex-col gap-2">
 			<div class="mb-3">
 				<label class="mb-2 block text-xs font-semibold text-primary">
-					Email
+					Correo
 				</label>
-				<input
-					type="email"
-					placeholder="Enter your email"
-					class="input-primary"
-				/>
+				<input type="email" placeholder="q@gmail.com" class="input-primary" />
 			</div>
 
 			<div class="mb-3">
 				<label class="mb-2 block text-xs font-semibold text-primary">
-					Password
+					Contraseña
 				</label>
 				<input type="password" placeholder="*****" class="input-primary" />
 			</div>
