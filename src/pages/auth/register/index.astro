@@ -1,4 +1,6 @@
 ---
+import InfoCircleIcon from '../../../components/icons/InfoCircleIcon.astro'
+import SpinIcon from '../../../components/icons/SpinIcon.astro'
 import AuthLayout from '../../../layouts/AuthLayout.astro'
 import { RegisterForm } from './ui/RegisterForm.tsx'
 ---
@@ -7,7 +9,10 @@ import { RegisterForm } from './ui/RegisterForm.tsx'
 	title="Bienvenido"
 	description="Maquina completa el formulario para crear tu cuenta">
 	<!-- Form -->
-	<RegisterForm client:only="preact" />
+	<RegisterForm client:only="preact">
+		<SpinIcon class="size-6 animate-spin" slot="spinnerIcon" />
+		<InfoCircleIcon class="size-5" slot="alertIcon" />
+	</RegisterForm>
 
 	<!-- Footer -->
 	<div class="text-center">
