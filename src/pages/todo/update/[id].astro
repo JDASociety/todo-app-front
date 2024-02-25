@@ -1,0 +1,30 @@
+---
+import Layout from '../../../layouts/TodoLayout.astro'
+import CheckIcon from '../../../components/icons/CheckIcon.astro'
+import { UpdateTodoForm } from './ui/UpdateTodoForm'
+import SpinIcon from '../../../components/icons/SpinIcon.astro'
+import InfoCircleIcon from '../../../components/icons/InfoCircleIcon.astro'
+import { getTodoById } from '../../../todo'
+
+const { id } = Astro.params
+
+if (!id) {
+	return Astro.redirect('/')
+}
+
+const todo = await getTodoById(id)
+
+if (!todo.ok) {
+	return Astro.redirect('/')
+}
+---
+
+<Layout title="Agregar nueva tarea">
+	<div class="w-full mx-auto text-center">
+		<UpdateTodoForm client:only="preact" todo={todo.todo}>
+			<CheckIcon class="size-3" slot="checkIcon" />
+			<SpinIcon class="size-6 animate-spin" slot="spinnerIcon" />
+			<InfoCircleIcon class="size-5" slot="alertIcon" />
+		</UpdateTodoForm>
+	</div>
+</Layout>
