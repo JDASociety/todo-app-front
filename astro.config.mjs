@@ -8,5 +8,10 @@ import preact from "@astrojs/preact";
 export default defineConfig({
   integrations: [tailwind(), preact()],
   output: 'server',
-  adapter: vercel()
+  adapter: vercel(),
+  redirects: {
+    '/todo': '/todo/list',
+    '/todo/update': '/',
+    '/auth/': '/auth/login',
+  }
 });
