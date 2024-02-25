@@ -1,0 +1,24 @@
+---
+import InfoCircleIcon from '../components/icons/InfoCircleIcon.astro'
+
+interface Props {
+	type?: 'error' | 'warning' | 'info' | 'success'
+}
+
+const { type = 'success' } = Astro.props
+---
+
+<p
+	class="text-sm font-semibold flex gap-2 p-2 rounded-md items-center"
+	class:list={[
+		{
+			'bg-danger text-white': type === 'error',
+			'bg-warning text-black': type === 'warning',
+			'bg-info text-white': type === 'info',
+			'bg-success text-white': type === 'success',
+		},
+	]}>
+	<InfoCircleIcon class="size-5" />
+
+	<slot />
+</p>
