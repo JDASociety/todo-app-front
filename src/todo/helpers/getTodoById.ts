@@ -1,5 +1,5 @@
 import { getEnvironments } from "../../helpers";
-import type { Todo } from '../../todo';
+import type { Todo } from '../';
 
 const { API_URL } = getEnvironments()
 
