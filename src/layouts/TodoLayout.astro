@@ -1,5 +1,6 @@
 ---
 import MainLayout from './MainLayout.astro'
+import ArrowLeft from '../components/icons/ArrowLeft.astro'
 
 interface Props {
 	title: string
@@ -11,7 +12,12 @@ const { title } = Astro.props
 <MainLayout>
 	<section class="flex justify-center items-center py-10">
 		<div
-			class="flex flex-col items-center max-w-2xl w-full bg-secondary shadow-xl shadow-[#000000] text-primary rounded-xl p-10">
+			class="flex flex-col items-center max-w-2xl w-full bg-secondary shadow-xl shadow-[#000000] text-primary rounded-xl p-10 relative">
+			<a
+				href="/"
+				class="absolute left-10 top-10 btn-secondary btn-gray rounded-full p-1 flex justify-center items-center">
+				<ArrowLeft class="size-7 stroke-[3]" />
+			</a>
 			<h1 class="font-bold text-balance text-4xl mb-10">TODO - APP</h1>
 			<section class="w-full">
 				<h2 class="text-xl font-medium mb-4">{title}</h2>

@@ -13,12 +13,28 @@
 </html>
 
 <style is:global>
+	.btn-secondary {
+		@apply transition-colors shadow-2xl cursor-pointer flex gap-2 items-center justify-center;
+	}
+
 	.btn {
 		@apply rounded-full px-6 py-2 transition-colors shadow-2xl cursor-pointer flex gap-2 items-center justify-center;
 	}
 
+	.btn:disabled {
+		@apply cursor-not-allowed bg-gray-400 shadow-none text-gray-800;
+	}
+
+	.btn:disabled:hover {
+		@apply bg-gray-400;
+	}
+
 	.input-primary {
-		@apply w-full border border-gray-300 text-tertiary rounded-md py-2 px-3 focus:outline-none focus:border-primary-light;
+		@apply w-full border border-gray-300 text-tertiary rounded-md py-2 px-3;
+	}
+
+	.input-primary:focus {
+		@apply outline-none border-primary-light ring-2 ring-orange-primary;
 	}
 
 	.btn-gray {

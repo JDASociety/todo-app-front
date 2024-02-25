@@ -32,9 +32,15 @@ const { position = 'left', description, title } = Astro.props
 
 			<!-- Login banner -->
 			<div
-				class="flex-wrap content-center max-w-[700px] w-full justify-center rounded-l-md hidden sm:flex">
+				class="flex-wrap content-center max-w-[700px] w-full justify-center hidden sm:flex">
 				<img
-					class="w-full h-full object-cover rounded-l-md"
+					class="w-full h-full object-cover"
+					class:list={[
+						{
+							'rounded-r-xl': position === 'left',
+							'rounded-l-xl': position === 'right',
+						},
+					]}
 					src="/elmaquinon-y-cbomba.webp"
 				/>
 			</div>
