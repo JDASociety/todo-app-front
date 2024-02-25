@@ -1,4 +1,6 @@
 ---
+import InfoCircleIcon from '../../../components/icons/InfoCircleIcon.astro'
+import SpinIcon from '../../../components/icons/SpinIcon.astro'
 import AuthLayout from '../../../layouts/AuthLayout.astro'
 import { LoginForm } from './ui/LoginForm'
 ---
@@ -8,7 +10,10 @@ import { LoginForm } from './ui/LoginForm'
 	title="Bienvenido"
 	description="Maquina introduce tus datos">
 	<!-- Form -->
-	<LoginForm client:only="preact" />
+	<LoginForm client:only="preact">
+		<SpinIcon class="size-6 animate-spin" slot="spinnerIcon" />
+		<InfoCircleIcon class="size-5" slot="alertIcon" />
+	</LoginForm>
 
 	<!-- Footer -->
 	<div class="text-center">
