@@ -13,6 +13,6 @@ export default defineConfig({
   redirects: {
     '/todo': '/todo/list',
     '/todo/update': '/',
-    '/auth/': '/auth/login'
+    '/auth': '/auth/login'
   }
 });
