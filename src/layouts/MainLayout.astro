@@ -1,11 +1,17 @@
+---
+import { ViewTransitions } from "astro:transitions"
+import "@fontsource-variable/onest"
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Inicio</title>
+    <ViewTransitions />
 	</head>
-	<body class="bg-[#121112]">
+	<body>
 		<main>
 			<slot />
 		</main>
@@ -13,6 +19,11 @@
 </html>
 
 <style is:global>
+	html {
+	  font-family: "Onest Variable", system-ui, sans-serif; 
+	  background: #121112;
+	}
+
 	.btn-secondary {
 		@apply transition-colors shadow-2xl cursor-pointer flex gap-2 items-center justify-center;
 	}
