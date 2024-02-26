@@ -1,44 +1,25 @@
 ---
 import { getSession } from 'auth-astro/server'
 import Layout from '../../../layouts/TodoLayout.astro'
+import { getTodos } from '../../../todo'
+import TodoCard from '../../../components/TodoCard.astro'
 
 const session = await getSession(Astro.request)
 
 if (!session) {
 	return Astro.redirect('/auth/login')
 }
+
+const { todos } = await getTodos({})
 ---
 
 <Layout title="Lista de Tareas">
 	<section>
 		<ul class="todolist-container w-full">
-			<li>Hola</li>
+
+			{ todos.map( todo => ( <TodoCard todo={todo}/> )) }
+
 		</ul>
 	</section>
 </Layout>
 
-<script>
-	import { getTodos } from '../../../todo'
-
-	const listResults = document.querySelector('.todolist-container')
-
-	;(async () => {
-		try {
-			const { todos } = await getTodos({})
-
-			todos.forEach((todo) => {
-				const listElement = document.createElement('li')
-				listElement.innerHTML = `
-                <article>
-                    <h3>${todo.title}</h3>
-                    <p>${todo.description}</p>
-                    <input type="checkbox" ${todo.done ? 'checked' : ''}>
-                </article>
-            `
-				listResults?.appendChild(listElement)
-			})
-		} catch (error) {
-			console.error('Error al hacer el fetch:', error)
-		}
-	})()
-</script>
