@@ -10,16 +10,15 @@ if (!session) {
 	return Astro.redirect('/auth/login')
 }
 
-const { todos } = await getTodos({})
+const token = session.user.token
+
+const { todos } = await getTodos({ token })
 ---
 
 <Layout title="Lista de Tareas">
 	<section>
 		<ul class="todolist-container w-full">
-
-			{ todos.map( todo => ( <TodoCard todo={todo}/> )) }
-
+			{todos.map((todo) => <TodoCard todo={todo} />)}
 		</ul>
 	</section>
 </Layout>
-

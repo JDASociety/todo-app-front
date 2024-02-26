@@ -6,9 +6,15 @@ interface Props {
 	checkIcon?: Element
 	spinnerIcon?: Element
 	alertIcon?: Element
+	token: string
 }
 
-export const NewTodoForm = ({ checkIcon, alertIcon, spinnerIcon }: Props) => {
+export const NewTodoForm = ({
+	checkIcon,
+	alertIcon,
+	spinnerIcon,
+	token,
+}: Props) => {
 	const [values, setValues] = useState<CreateTodo>({
 		title: '',
 		description: '',
@@ -29,7 +35,7 @@ export const NewTodoForm = ({ checkIcon, alertIcon, spinnerIcon }: Props) => {
 		e.preventDefault()
 		onChangeIsLoading(true)
 
-		const newTodo = await setNewTodo(values)
+		const newTodo = await setNewTodo(values, token)
 
 		onChangeIsLoading(false)
 

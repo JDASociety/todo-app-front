@@ -10,9 +10,11 @@ const session = await getSession(Astro.request)
 if (!session) {
 	return Astro.redirect('/auth/login')
 }
+const token = session.user.token
 
-const { completedTodos, incompleteTodos, totalTodos } = await getStatusTodos()
-const latestTodo = await getLatestTodo()
+const { completedTodos, incompleteTodos, totalTodos } =
+	await getStatusTodos(token)
+const latestTodo = await getLatestTodo(token)
 ---
 
 <Layout>

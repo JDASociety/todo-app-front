@@ -12,6 +12,7 @@ interface Props {
 	spinnerIcon?: Element
 	alertIcon?: Element
 	todo: Todo
+	token: string
 }
 
 export const UpdateTodoForm = ({
@@ -19,6 +20,7 @@ export const UpdateTodoForm = ({
 	alertIcon,
 	spinnerIcon,
 	todo,
+	token,
 }: Props) => {
 	const [values, setValues] = useState<CreateTodo>({
 		title: todo.title,
@@ -39,7 +41,7 @@ export const UpdateTodoForm = ({
 	const onDeleteTodo = async () => {
 		onChangeIsLoading(true)
 
-		const newTodo = await deleteTodoById(todo.id)
+		const newTodo = await deleteTodoById(todo.id, token)
 
 		onChangeIsLoading(false)
 
@@ -58,7 +60,7 @@ export const UpdateTodoForm = ({
 		e.preventDefault()
 		onChangeIsLoading(true)
 
-		const newTodo = await updateTodo(todo.id, values)
+		const newTodo = await updateTodo({ id: todo.id, token, values })
 
 		onChangeIsLoading(false)
 

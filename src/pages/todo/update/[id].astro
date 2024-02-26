@@ -19,7 +19,9 @@ if (!id) {
 	return Astro.redirect('/')
 }
 
-const todo = await getTodoById(id)
+const token = session.user.token
+
+const todo = await getTodoById(id, token)
 
 if (!todo.ok) {
 	return Astro.redirect('/')
@@ -28,7 +30,7 @@ if (!todo.ok) {
 
 <Layout title="Agregar nueva tarea">
 	<div class="w-full mx-auto text-center">
-		<UpdateTodoForm client:only="preact" todo={todo.todo}>
+		<UpdateTodoForm client:only="preact" todo={todo.todo} token={token}>
 			<CheckIcon class="size-3" slot="checkIcon" />
 			<SpinIcon class="size-6 animate-spin" slot="spinnerIcon" />
 			<InfoCircleIcon class="size-5" slot="alertIcon" />
