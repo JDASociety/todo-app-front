@@ -18,100 +18,122 @@ const latestTodo = await getLatestTodo(token)
 ---
 
 <Layout>
-	<div class="min-h-screen flex justify-center items-center">
-		<div class="w-10/12">
-			<div class="flex flex-row">
-				<div
-					class="bg-secondary text-secondary shadow-inner shadow-primary rounded-xl w-7/12 mr-2 p-6">
-					<p class="text-5xl">
-						Bienvenido señor <br />
-						<strong class="text-primary">{session?.user?.name}</strong>
-					</p>
-					<div class="mt-12 flex gap-4">
-						<a class="btn btn-gray" href="/profile">Ir a mi Perfil</a>
-					</div>
+	<div class="min-h-screen flex justify-center items-center py-4">
+		<div class="w-full md:w-11/12 xl:w-10/12 bento-container gap-4">
+			<div
+				class="bg-secondary w-full row-span-1 col-span-full md:col-span-9 text-secondary shadow-inner shadow-primary rounded-xl p-6">
+				<p class="text-5xl">
+					Bienvenido señor <br />
+					<strong class="text-primary">{session?.user?.name}</strong>
+				</p>
+				<div class="mt-12 flex gap-4">
+					<a class="btn btn-gray" href="/profile">Ir a mi Perfil</a>
 				</div>
+			</div>
 
+			<div
+				class:list={[
+					{
+						'gap-5': latestTodo.ok,
+					},
+				]}
+				class="flex flex-col row-span-1 col-span-full sm:col-span-10 md:col-span-7 bg-secondary text-primary shadow-inner shadow-primary rounded-xl p-6">
+				<p class="text-2xl font-semibold">Tu ultima tarea</p>
 				{
 					latestTodo.ok ? (
-						<div class="flex flex-col justify-between bg-secondary text-primary shadow-inner shadow-primary rounded-xl w-5/12 ml-2 p-6">
-							<p class="text-2xl font-semibold">Tu ultima tarea</p>
-
-							<a
-								href={`/todo/update/${latestTodo.todo.id}`}
-								class="flex flex-col shadow-2xl bg-tertiary/10 hover:bg-tertiary/15 transition-colors backdrop-blur-lg rounded-xl p-4">
-								<p class="text-xl font-semibold">{latestTodo.todo.title}</p>
-								<p class="text-base line-clamp-2 max-h-[3rem] h-[3rem] overflow-hidden">
-									{latestTodo.todo.description}
-								</p>
-								<span class="text-primary/80 self-end mt-2">
-									{transformDate(latestTodo.todo.updated_at)}
-								</span>
-							</a>
-						</div>
+						<a
+							href={`/todo/update/${latestTodo.todo.id}`}
+							class="flex flex-col shadow-2xl bg-tertiary/10 hover:bg-tertiary/15 transition-colors backdrop-blur-lg rounded-xl p-4 mt-auto">
+							<p class="text-xl font-semibold">{latestTodo.todo.title}</p>
+							<p class="text-base line-clamp-2 max-h-[3rem] h-[3rem] overflow-hidden">
+								{latestTodo.todo.description}
+							</p>
+							<span class="text-primary/80 self-end mt-2">
+								{transformDate(latestTodo.todo.updated_at)}
+							</span>
+						</a>
 					) : (
-						<div class="flex flex-col justify-between bg-secondary text-primary shadow-inner shadow-primary rounded-xl w-5/12 ml-2 p-6">
-							<div>
-								<p class="text-2xl font-semibold">Tu ultima tarea</p>
-								<p>Al parecer no tienes tareas por completar</p>
-							</div>
+						<>
+							<p>Al parecer no tienes tareas por completar</p>
 
 							<Image
 								src="/to-do-list.webp"
 								alt=""
 								width={100}
 								height={100}
-								class="w-20 aspect-auto ml-5"
+								class="w-20 aspect-auto ml-5 mt-auto"
 							/>
-						</div>
+						</>
 					)
 				}
 			</div>
-			<div class="flex flex-row mt-6">
-				<div
-					class="flex flex-col justify-between items-center bg-secondary shadow-inner shadow-primary rounded-xl px-6 py-4 w-4/12 gap-5">
-					<p class="font-semibold text-2xl text-primary">Lista de tareas</p>
 
-					<div
-						class="flex flex-col items-center text-center text-secondary gap-2">
-						<div class="flex gap-2">
-							<div
-								class="rounded-md bg-[#2b2b2b] shadow-inner shadow-[#c0c0c060] p-3">
-								<span class="text-primary font-black">{incompleteTodos}</span>
-								<p class="font-semibold">Incompletas</p>
-							</div>
-							<div
-								class="rounded-md bg-[#2b2b2b] shadow-inner shadow-[#c0c0c060] p-3">
-								<span class="text-primary font-black">{completedTodos}</span>
-								<p class="font-bold">Completadas</p>
-							</div>
+			<div
+				class="flex sm:col-start-1 sm:row-start-3 md:col-start-auto md:row-start-auto row-span-1 col-span-full sm:col-span-8 md:col-span-6 flex-col justify-between items-center bg-secondary shadow-inner shadow-primary rounded-xl px-6 py-5 gap-7">
+				<p class="font-semibold text-2xl text-primary text-center text-balance">
+					Lista de tareas
+				</p>
+
+				<div
+					class="flex flex-col items-center text-center text-secondary gap-2">
+					<div class="flex gap-2">
+						<div
+							class="rounded-md bg-[#2b2b2b] shadow-inner shadow-[#c0c0c060] p-3">
+							<span class="text-primary font-black">{incompleteTodos}</span>
+							<p class="font-semibold">Incompletas</p>
 						</div>
 						<div
-							class="rounded-md bg-[#2b2b2b] shadow-inner shadow-[#c0c0c060] w-full py-2">
-							<div class="">
-								<span class="text-primary font-black">{totalTodos}</span>
-								<p class="font-semibold">Tareas Totales</p>
-							</div>
+							class="rounded-md bg-[#2b2b2b] shadow-inner shadow-[#c0c0c060] p-3">
+							<span class="text-primary font-black">{completedTodos}</span>
+							<p class="font-bold">Completadas</p>
 						</div>
 					</div>
-
-					<a class="btn btn-gray" href="/todo/list">Ver todas las tareas</a>
+					<div
+						class="rounded-md bg-[#2b2b2b] shadow-inner shadow-[#c0c0c060] w-full py-2">
+						<div class="">
+							<span class="text-primary font-black">{totalTodos}</span>
+							<p class="font-semibold">Tareas Totales</p>
+						</div>
+					</div>
 				</div>
-				<div
-					class="flex flex-col justify-between items-center bg-secondary shadow-inner shadow-primary rounded-xl mx-6 px-6 py-4 w-4/12">
-					<p class="font-semibold text-2xl text-primary">Agregar un tarea</p>
 
-					<Image src="/list-image.webp" alt="asdf" width={140} height={140} />
+				<a class="btn btn-gray" href="/todo/list">Ver todas las tareas</a>
+			</div>
 
-					<a class="btn btn-gray" href="/todo/new">Nueva Tarea</a>
-				</div>
-				<div
-					class="bg-secondary shadow-inner shadow-primary rounded-xl text-secondary w-4/12 flex flex-col gap-2 justify-center items-center">
-					<h1 class="text-5xl font-extrabold text-primary">TODO - APP</h1>
-					<p class="text-2xl">Hecho por el q y siac</p>
-					<p class="text-2xl">Proyecto Fénix</p>
-				</div>
+			<div
+				class="flex flex-col sm:col-start-[11] sm:row-start-2 md:col-start-auto md:row-start-auto row-span-1 col-span-full sm:col-span-6 md:col-span-5 justify-between items-center bg-secondary shadow-inner shadow-primary rounded-xl px-6 py-5 gap-5">
+				<p class="font-semibold text-2xl text-primary text-center text-balance">
+					Agregar un tarea
+				</p>
+
+				<Image src="/list-image.webp" alt="asdf" width={140} height={140} />
+
+				<a class="btn btn-gray" href="/todo/new">Nueva Tarea</a>
+			</div>
+
+			<div
+				class="bg-secondary row-span-1 col-span-full sm:col-span-8 md:col-span-5 shadow-inner shadow-primary rounded-xl text-secondary flex flex-col gap-2 justify-center items-center text-center px-4 py-16 md:py-4">
+				<h1 class="text-5xl font-extrabold text-primary text-balance">
+					TODO APP
+				</h1>
+				<p class="text-2xl">
+					Hecho por el
+					<span class="text-orange-primary font-bold">q</span>
+					y el
+					<span class="text-orange-primary font-bold">siac</span>
+				</p>
+				<p class="text-2xl">
+					Proyecto <span class="text-orange-primary font-bold">Fénix</span>
+				</p>
 			</div>
 		</div>
 	</div>
 </Layout>
+
+<style>
+	.bento-container {
+		display: grid;
+		grid-template-columns: repeat(16, minmax(0, 1fr));
+		grid-auto-rows: auto;
+	}
+</style>
