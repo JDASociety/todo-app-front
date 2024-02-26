@@ -1,9 +1,16 @@
 ---
+import { getSession } from 'auth-astro/server'
 import Layout from '../../../layouts/TodoLayout.astro'
 import CheckIcon from '../../../components/icons/CheckIcon.astro'
 import { NewTodoForm } from './ui/NewTodoForm'
 import SpinIcon from '../../../components/icons/SpinIcon.astro'
 import InfoCircleIcon from '../../../components/icons/InfoCircleIcon.astro'
+
+const session = await getSession(Astro.request)
+
+if (!session) {
+	return Astro.redirect('/auth/login')
+}
 ---
 
 <Layout title="Agregar nueva tarea">

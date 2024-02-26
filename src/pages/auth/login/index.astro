@@ -1,8 +1,15 @@
 ---
+import { getSession } from 'auth-astro/server'
 import InfoCircleIcon from '../../../components/icons/InfoCircleIcon.astro'
 import SpinIcon from '../../../components/icons/SpinIcon.astro'
 import AuthLayout from '../../../layouts/AuthLayout.astro'
 import { LoginForm } from './ui/LoginForm'
+
+const session = await getSession(Astro.request)
+
+if (session) {
+	return Astro.redirect('/', 301)
+}
 ---
 
 <AuthLayout

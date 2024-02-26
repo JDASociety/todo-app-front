@@ -1,4 +1,5 @@
 ---
+import { getSession } from 'auth-astro/server'
 import Layout from '../../../layouts/TodoLayout.astro'
 import CheckIcon from '../../../components/icons/CheckIcon.astro'
 import { UpdateTodoForm } from './ui/UpdateTodoForm'
@@ -7,6 +8,12 @@ import InfoCircleIcon from '../../../components/icons/InfoCircleIcon.astro'
 import { getTodoById } from '../../../todo'
 
 const { id } = Astro.params
+
+const session = await getSession(Astro.request)
+
+if (!session) {
+	return Astro.redirect('/auth/login')
+}
 
 if (!id) {
 	return Astro.redirect('/')
