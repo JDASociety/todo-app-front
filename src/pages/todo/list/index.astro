@@ -17,7 +17,7 @@ const { todos } = await getTodos({ token })
 
 <Layout title="Lista de Tareas">
 	<section>
-		<ul class="todolist-container w-full">
+		<ul class="w-full flex flex-col gap-5">
 			{todos.map((todo) => <TodoCard todo={todo} />)}
 		</ul>
 	</section>
