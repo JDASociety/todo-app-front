@@ -52,7 +52,7 @@ export const RegisterForm = ({ alertIcon, spinnerIcon }: Props) => {
 				<input
 					name="name"
 					id="name"
-					type="email"
+					type="text"
 					placeholder="Jonh Bravo"
 					value={values.name}
 					onInput={handleOnChange}
