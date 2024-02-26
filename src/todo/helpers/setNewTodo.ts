@@ -3,13 +3,14 @@ import type { CreateTodo } from "../";
 
 const { API_URL } = getEnvironments()
 
-export const setNewTodo = async(todo: CreateTodo) =>  {
+export const setNewTodo = async(todo: CreateTodo, token: string) =>  {
 
   try {
     const response = await fetch(`${API_URL}/todo/`, {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(todo)
     });

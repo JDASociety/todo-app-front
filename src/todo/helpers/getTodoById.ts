@@ -13,12 +13,13 @@ interface Error {
   error: unknown;
 }
 
-export const getTodoById = async(id: string): Promise<Success | Error> => {
+export const getTodoById = async(id: string, token: string): Promise<Success | Error> => {
   try {
     const response = await fetch(`${API_URL}/todo/${id}/`, {
       method: 'GET',
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
       }
     });
 

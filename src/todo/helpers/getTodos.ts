@@ -7,6 +7,7 @@ interface Props {
   page?: number;
   take?: number;
   isDone?: boolean;
+  token: string;
 }
 
 interface Response {
@@ -15,13 +16,19 @@ interface Response {
   todos: Todo[];
 }
 
-export const getTodos = async({ page = 1, take = 8, isDone }: Props): Promise<Response> => {
+export const getTodos = async({ page = 1, take = 8, isDone, token }: Props): Promise<Response> => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
 
   try {
 
-    const response = await fetch(`${API_URL}/todo/`);
+    const response = await fetch(`${API_URL}/todo/`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      }
+    });
 
     if (!response.ok) {
       throw new Error('Hubo un error al obtener las tareas.')

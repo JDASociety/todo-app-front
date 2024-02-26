@@ -12,13 +12,20 @@ interface Error {
   ok: false;
 }
 
-export const updateTodo = async(id: string, values: CreateTodo): Promise<Success | Error> => {
+interface Props {
+  id: string;
+  values: CreateTodo;
+  token: string;
+}
+
+export const updateTodo = async({ id, token, values }: Props): Promise<Success | Error> => {
 
   try {
     const response = await fetch(`${API_URL}/todo/${id}/`, {
       method: 'PUT',
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(values)
     });

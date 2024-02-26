@@ -3,13 +3,14 @@ import type { StatusTodos } from "../";
 
 const { API_URL } = getEnvironments()
 
-export const getStatusTodos = async(): Promise<StatusTodos> => {
+export const getStatusTodos = async(token: string): Promise<StatusTodos> => {
 
   try {
     const response = await fetch(`${API_URL}/todo/status-todo/`, {
       method: 'GET',
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
       }
     });
 

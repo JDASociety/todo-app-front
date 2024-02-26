@@ -2,12 +2,13 @@ import { getEnvironments } from "../../helpers";
 
 const { API_URL } = getEnvironments()
 
-export const deleteTodoById = async(id: string) => {
+export const deleteTodoById = async(id: string, token: string) => {
   try {
     const response = await fetch(`${API_URL}/todo/${id}/`, {
       method: 'DELETE',
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
       }
     });
 
