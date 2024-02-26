@@ -2,6 +2,7 @@
 
 export * from './helpers/login'
 export * from './helpers/register'
+export * from './helpers/signOut'
 
 // interfaces
 

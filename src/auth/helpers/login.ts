@@ -1,19 +1,19 @@
-import type { LoginUser } from "../interfaces/login.interfaces";
-import { getEnvironments } from '../../helpers'
 import { signIn } from "auth-astro/client";
+import type { LoginUser, ResponseLoginUser } from "../interfaces/login.interfaces";
+import { getEnvironments } from '../../helpers'
 
 const { API_URL } = getEnvironments()
 
 
 export const login = async(credentials: LoginUser): Promise<{
   ok: true;
-  user: any;
+  user: ResponseLoginUser;
 } | {
   ok: false;
 }> => {
 
   try {
-    const authResponse = await fetch(`${API_URL}/user/login`, {
+    const authResponse = await fetch(`${API_URL}/user/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

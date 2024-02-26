@@ -6,7 +6,7 @@ const { API_URL } = getEnvironments()
 
 export const register = async(credentials: RegisterUser) => {
   try {
-    const authResponse = await fetch(`${API_URL}/user/register`, {
+    const authResponse = await fetch(`${API_URL}/user/register/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
