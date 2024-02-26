@@ -1,11 +1,16 @@
 ---
+import { getSession } from 'auth-astro/server'
 import { Image } from 'astro:assets'
 import Layout from '../../layouts/MainLayout.astro'
 import DividerContent from '../../components/DividerContent.astro'
 import LogoutIcon from '../../components/icons/LogoutIcon.astro'
 import TrashIcon from '../../components/icons/TrashIcon.astro'
 
-const name = 'Abraham el q'
+const session = await getSession(Astro.request)
+
+if (!session) {
+	return Astro.redirect('/auth/login')
+}
 ---
 
 <Layout>
@@ -30,17 +35,20 @@ const name = 'Abraham el q'
 								<div class="flex flex-col sm:mt-3">
 									<div
 										class="w-full flex-none text-lg text-primary font-bold leading-none">
-										{name}
+										{session.user?.name}
 									</div>
 									<div class="text-gray-400 my-1">
 										<span class="mr-3">Profesional en todos</span>
 										<span class="mr-3 border-r border-gray-600 max-h-0"></span>
-										<span>MEX</span>
+										<span>Mex</span>
+									</div>
+									<div class="text-gray-400 my-1">
+										<span class="mr-3">{session.user?.email}</span>
 									</div>
 								</div>
 								<div class="flex self-end gap-3">
 									<a class="btn btn-gray" href="/">Volver</a>
-									<button class="btn btn-gray">
+									<button class="btn btn-gray" id="logout">
 										Cerrar Sesión
 										<LogoutIcon class="size-5" />
 									</button>
@@ -55,7 +63,10 @@ const name = 'Abraham el q'
 					<DividerContent
 						title="Eliminar mi cuenta"
 						description="Una vez eliminado tu cuenta, ya no podrás recuperar tus tareas">
-						<button class="btn btn-danger">
+						<button
+							class="btn btn-danger"
+							id="delete-account"
+							data-jwt={session.user.token}>
 							Eliminar Cuenta
 							<TrashIcon class="size-5" />
 						</button>
@@ -65,3 +76,22 @@ const name = 'Abraham el q'
 		</div>
 	</div>
 </Layout>
+
+<script>
+	import { handleSignOut } from '../../auth'
+	import { deleteAccount } from '../../user'
+
+	const buttonLogout = document.querySelector('#logout')
+	const buttonDeleteAccount = document.querySelector('#delete-account')
+	const jwt = buttonDeleteAccount?.getAttribute('data-jwt')
+
+	buttonDeleteAccount?.addEventListener('click', async () => {
+		if (confirm('¿Estás seguro de eliminar tu cuenta?')) {
+			await deleteAccount(jwt!)
+		}
+	})
+
+	buttonLogout?.addEventListener('click', async () => {
+		await handleSignOut()
+	})
+</script>
