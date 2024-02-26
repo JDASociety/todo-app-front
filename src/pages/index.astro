@@ -1,17 +1,18 @@
 ---
 import { Image } from 'astro:assets'
+import { getSession } from 'auth-astro/server'
 import Layout from '../layouts/MainLayout.astro'
-import LogoutIcon from '../components/icons/LogoutIcon.astro'
-import InfoCircleIcon from '../components/icons/InfoCircleIcon.astro'
-import ExpandingBadge from '../components/ExpandingBadge.astro'
 import { getLatestTodo, getStatusTodos } from '../todo'
 import { transformDate } from '../helpers'
 
-const name = 'Abraham Hernandez Q'
+const session = await getSession(Astro.request)
 
-const latestTodo = await getLatestTodo()
+if (!session) {
+	return Astro.redirect('/auth/login')
+}
 
 const { completedTodos, incompleteTodos, totalTodos } = await getStatusTodos()
+const latestTodo = await getLatestTodo()
 ---
 
 <Layout>
@@ -22,7 +23,7 @@ const { completedTodos, incompleteTodos, totalTodos } = await getStatusTodos()
 					class="bg-secondary text-secondary shadow-inner shadow-primary rounded-xl w-7/12 mr-2 p-6">
 					<p class="text-5xl">
 						Bienvenido señor <br />
-						<strong class="text-primary">{name}</strong>
+						<strong class="text-primary">{session?.user?.name}</strong>
 					</p>
 					<div class="mt-12 flex gap-4">
 						<a class="btn btn-gray" href="/profile">Ir a mi Perfil</a>
