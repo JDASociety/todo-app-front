@@ -1,8 +1,10 @@
 ---
 import { getSession } from 'auth-astro/server'
 import Layout from '../../../layouts/TodoLayout.astro'
-import { getTodos } from '../../../todo'
 import TodoCard from '../../../components/TodoCard.astro'
+import { getTodos, type GetTodosProps } from '../../../todo'
+import Pagination from '../../../components/Pagination.astro'
+import HeaderFiltersTodoList from '../../../components/HeaderFiltersTodoList.astro'
 
 const session = await getSession(Astro.request)
 
@@ -12,13 +14,36 @@ if (!session) {
 
 const token = session.user.token
 
-const { todos } = await getTodos({ token })
+const query = Astro.url.searchParams
+
+const todosProps: GetTodosProps = {
+	token,
+	take: Number(query.get('take')),
+	page: Number(query.get('page')),
+}
+
+const isDone = query.get('isDone')
+const startDate = query.get('startDate')
+const endDate = query.get('endDate')
+
+if (isDone) {
+	todosProps.isDone = isDone === 'true'
+}
+
+if (startDate && endDate) {
+	todosProps.startDate = new Date(startDate)
+	todosProps.endDate = new Date(endDate)
+}
+
+const { todos, totalPages } = await getTodos(todosProps)
 ---
 
 <Layout title="Lista de Tareas">
-	<section>
+	<section class="bg-primary rounded-xl p-5">
+		<HeaderFiltersTodoList totalTodos={todos.length} />
 		<ul class="w-full flex flex-col gap-5">
 			{todos.map((todo) => <TodoCard todo={todo} />)}
 		</ul>
 	</section>
+	<Pagination totalPages={totalPages} />
 </Layout>
