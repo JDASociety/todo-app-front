@@ -1,0 +1,93 @@
+---
+import ArrowLeft from './icons/ArrowLeft.astro'
+import { generatePaginationNumbers } from '../helpers'
+
+interface Props {
+	totalPages: number
+}
+
+const { pathname, searchParams } = Astro.url
+
+const pageString = searchParams.get('page') ?? 1
+const currentPage = isNaN(Number(pageString)) ? 1 : Number(pageString)
+
+if (currentPage < 1 || isNaN(Number(pageString))) {
+	Astro.redirect(pathname)
+}
+
+const createPageUrl = (pageNumber: number | string) => {
+	const params = new URLSearchParams(searchParams)
+
+	if (pageNumber === '...') {
+		return `${pathname}?${params.toString()}`
+	}
+
+	if (Number(pageNumber) <= 0) {
+		return `${pathname}`
+	}
+
+	if (Number(pageNumber) > totalPages) {
+		return `${pathname}?${params.toString()}`
+	}
+
+	params.set('page', pageNumber.toString())
+	return `${pathname}?${params.toString()}`
+}
+
+const { totalPages } = Astro.props
+
+const allPages = generatePaginationNumbers(currentPage, totalPages)
+---
+
+<div class="flex items-center justify-center mt-7 px-4">
+	<div
+		class="w-full flex items-center justify-between border-t border-orange-primary">
+		<a
+			href={createPageUrl(currentPage - 1)}
+			class:list={[
+				{
+					'cursor-not-allowed text-secondary hover:text-secondary pointer-events-none':
+						currentPage === 1,
+				},
+			]}
+			class="flex items-center pt-3 text-primary hover:text-orange-primary transition-colors cursor-pointer">
+			<ArrowLeft class="size-5 stroke-2" />
+
+			<p class="text-sm ml-3 font-bold leading-none">Previo</p>
+		</a>
+
+		<ul class="flex gap-4">
+			{
+				allPages.map((page, index) => (
+					<li
+						class="text-base leading-none hover:text-orange-primary border-t hover:border-orange-primary"
+						class:list={[
+							{
+								'text-secondary border-transparent': page !== currentPage,
+								'font-bold text-orange-primary border-orange-primary':
+									page === currentPage,
+							},
+						]}>
+						<a href={createPageUrl(page)} class="w-full block h-full pt-3 px-2">
+							{page}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<a
+			href={createPageUrl(currentPage + 1)}
+			class:list={[
+				{
+					'cursor-not-allowed text-secondary hover:text-secondary pointer-events-none':
+						currentPage === totalPages,
+				},
+			]}
+			class="flex items-center pt-3 text-primary hover:text-orange-primary transition-colors cursor-pointer">
+			<p class="text-sm font-medium leading-none mr-3">Next</p>
+
+			<ArrowLeft class="size-5 stroke-2 transform rotate-180" />
+		</a>
+	</div>
+</div>

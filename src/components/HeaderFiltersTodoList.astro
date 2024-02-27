@@ -1,0 +1,53 @@
+---
+interface Props {
+	totalTodos: number
+}
+
+const { totalTodos } = Astro.props
+
+const { pathname, searchParams } = Astro.url
+
+const getUrlTodoByStatus = (status: 'true' | 'false') => {
+	const params = new URLSearchParams(searchParams)
+	params.set('isDone', status)
+	params.set('page', '1')
+
+	return `${pathname}?${params.toString()}`
+}
+
+const getUrlTodos = () => {
+	const params = new URLSearchParams(searchParams)
+	params.delete('isDone')
+
+	return `${pathname}?${params.toString()}`
+}
+---
+
+<div class="mb-5 shadow-2xl bg-tertiary/10 rounded-xl p-4">
+	<div class="flex justify-between flex-wrap gap-5">
+		<div>
+			<p class="text-primary font-bold">Proyecto Fénix</p>
+			<p class="text-secondary font-bold">
+				Tareas Totales:
+				<span class="text-primary">{totalTodos}</span>
+			</p>
+		</div>
+		<div class="flex gap-2">
+			<a
+				href={getUrlTodos()}
+				class="btn-secondary btn-gray px-3 py-2 rounded-lg">
+				Todos</a
+			>
+			<a
+				href={getUrlTodoByStatus('true')}
+				class="btn-secondary btn-gray px-3 py-2 rounded-lg">
+				Completados
+			</a>
+			<a
+				href={getUrlTodoByStatus('false')}
+				class="btn-secondary btn-gray px-3 py-2 rounded-lg">
+				Incompleta
+			</a>
+		</div>
+	</div>
+</div>

@@ -1,37 +1,35 @@
 ---
-
 import { transformDate } from '../helpers'
 import type { Todo } from '../todo'
 
-interface Props  {
-    
-    todo: Todo
-
+interface Props {
+	todo: Todo
 }
 
 const { todo } = Astro.props
 
 const { id, title, description, done, updated_at } = todo
-
 ---
 
-<li class="flex flex-col gap-5 shadow-2xl bg-tertiary/10 backdrop-blur-lg rounded-xl p-4" >
-    
-    <header class="flex justify-between">
-        <h3 class="flex items-center text-xl font-bold">
-            { title } - 
-            <span class:list={[
-                {
-                    'text-danger' : !done,
-                    'text-success' : done
-                }
-            ]}>{ done ? 'Completada' : 'Incompleta' }</span>
-        </h3>
-        <a class="btn btn-orange text-sm font-semibold" href={`/todo/update/${id}`}>Editar</a>
-    </header>
-    <section class="flex flex-row justify-between"> 
-        <p class="">{ description }</p>
-        <span>{ transformDate( updated_at ) }</span>
-    </section>
-    
+<li class="flex flex-col gap-5 shadow-2xl bg-tertiary/10 rounded-xl p-4">
+	<header class="flex justify-between">
+		<h3 class="flex items-center text-xl font-bold">
+			{title} -
+			<span
+				class:list={[
+					{
+						'text-danger': !done,
+						'text-success': done,
+					},
+				]}>{done ? 'Completada' : 'Incompleta'}</span
+			>
+		</h3>
+		<a class="btn btn-orange text-sm font-semibold" href={`/todo/update/${id}`}
+			>Editar</a
+		>
+	</header>
+	<section class="flex flex-row justify-between">
+		<p class="">{description}</p>
+		<span>{transformDate(updated_at)}</span>
+	</section>
 </li>
