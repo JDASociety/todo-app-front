@@ -36,6 +36,7 @@ export default {
 				'primary-light': '#9e9e9e',
 				'primary-dark': '#bfbdb6',
 				'secondary': '#1a191a',
+				'orange-primary': '#f3b029',
 			}
 		},
 	},
